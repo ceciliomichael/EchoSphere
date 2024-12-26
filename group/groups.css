@@ -1,0 +1,880 @@
+@import url('../main/styles.css');
+
+/* Group-specific styles */
+.groups-sidebar {
+    width: 320px;
+    background: var(--bg-dark);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    min-width: 320px; /* Add this line */
+    max-width: 320px; /* Add this line */
+}
+
+.groups-header {
+    padding: 24px;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.groups-header h2 {
+    font-size: 1.2em; /* Match main chat size */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 500; /* Match main chat font weight */
+}
+
+.groups-header h2 i {
+    font-size: 1.2em;
+}
+
+.groups-list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden; /* Add this line */
+    width: 100%; /* Add this line */
+}
+
+.group-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    width: 100%; /* Add this line */
+    box-sizing: border-box; /* Add this line */
+    overflow: hidden; /* Add this line */
+}
+
+/* Remove edit and only keep delete button styles */
+.group-actions {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.group-item:hover .group-actions {
+    opacity: 1;
+}
+
+.delete-group-btn {
+    position: static;
+    transform: none;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.delete-group-btn:hover {
+    color: #ff4444;
+}
+
+.group-item:hover {
+    background: var(--bg-hover);
+}
+
+.group-item.active {
+    background: var(--accent-color-light);
+}
+
+.group-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Change to match main chat's circular profile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-color);
+    color: white;
+    border: 2px solid var(--border-color); /* Add border to match main chat */
+}
+
+.group-avatar i {
+    font-size: 1.2em;
+}
+
+.add-group-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    width: auto;
+    height: auto;
+    box-shadow: none;
+}
+
+.add-group-btn:hover {
+    transform: none;
+    color: var(--accent-color);
+}
+
+.groups-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.dialog {
+    background: var(--bg-dark);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+}
+
+.save-btn {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-color-dark));
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.save-btn:active {
+    transform: translateY(0);
+}
+
+.cancel-btn {
+    background: var(--bg-lighter);
+    border: 1px solid var(--border-color);
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cancel-btn:hover {
+    background: var(--bg-dark);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.group-info {
+    flex: 1;
+    min-width: 0; /* Add this line */
+    overflow: hidden; /* Add this line */
+    margin-left: 15px; /* Add spacing between avatar and info */
+}
+
+.group-info h3 {
+    margin: 0;
+    font-size: 0.9em;
+    white-space: nowrap; /* Add this line */
+    overflow: hidden; /* Add this line */
+    text-overflow: ellipsis; /* Add this line */
+}
+
+.group-info p {
+    margin: 4px 0 0;
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    white-space: nowrap; /* Add this line */
+    overflow: hidden; /* Add this line */
+    text-overflow: ellipsis; /* Add this line */
+}
+
+.members-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-lighter);
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) var(--bg-lighter);
+    padding: 8px;
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    align-content: start; /* Add this line to ensure proper grid alignment */
+}
+
+.members-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.members-list::-webkit-scrollbar-track {
+    background: var(--bg-lighter);
+    border-radius: 3px;
+}
+
+.members-list::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 3px;
+    border: 1px solid var(--bg-lighter);
+}
+
+.member-option {
+    min-height: 60px; /* Add this line to ensure consistent height */
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-dark);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.member-option:last-child {
+    border-bottom: none;
+}
+
+.member-option:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.member-option label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    flex: 1;
+    width: 100%;
+}
+
+.member-option img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.member-option input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-lighter);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+}
+
+.member-option input[type="checkbox"]:checked {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.member-option input[type="checkbox"]:checked::before {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.member-option input[type="checkbox"]:checked ~ img {
+    border-color: var(--accent-color);
+}
+
+.group-message {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+}
+
+.message-author {
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+/* Group info panel */
+.group-info-panel {
+    position: absolute;
+    right: -300px;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    background: var(--bg-dark);
+    border-left: 1px solid var(--border-color);
+    transition: right 0.3s ease;
+}
+
+.group-info-panel.active {
+    right: 0;
+}
+
+.panel-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.panel-content {
+    padding: 20px;
+}
+
+.member-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.member-list-item img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+#autoChatBtn {
+    position: relative;
+    overflow: visible; /* Changed from hidden to show indicator */
+    transition: all 0.3s ease;
+    padding-right: 28px; /* Make room for indicator */
+    border: 1px solid var(--border-color);
+}
+
+#autoChatBtn.active {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    box-shadow: 0 2px 6px rgba(var(--accent-color-rgb), 0.3);
+}
+
+#autoChatBtn.active::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #4CAF50;
+    border-radius: 50%;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    box-shadow: 0 0 6px #4CAF50;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+#autoChatBtn:not(.disabled):hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(var(--accent-color-rgb), 0.2);
+}
+
+#autoChatBtn.active:hover {
+    background: var(--accent-color-dark);
+    color: white;
+    border-color: var(--accent-color-dark);
+    box-shadow: 0 2px 8px rgba(var(--accent-color-rgb), 0.3);
+}
+
+#autoChatBtn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: var(--bg-lighter);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+    box-shadow: none;
+}
+
+.system-message {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 8px;
+    margin: 8px 0;
+    background: var(--bg-dark);
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+/* Enhanced Settings Dialog Styles */
+.settings-dialog {
+    max-width: 600px;
+    width: 90%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--bg-dark);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    position: relative;
+    margin: 20px;
+}
+
+.dialog-header {
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dialog-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-header h2 .fa-cog {
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+}
+
+.fa-spin-hover:hover {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.settings-content {
+    padding: 24px;
+    background: var(--bg-dark);
+    border-radius: 16px;
+    margin: 12px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.interval-controls {
+    background: var(--bg-lighter);
+    padding: 16px;
+    border-radius: 12px;
+    margin: 12px 0;
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.token-override-section {
+    margin-top: 24px;
+    padding: 16px;
+    background: var(--bg-lighter);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.token-toggle {
+    background: var(--bg-dark);
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.token-limits {
+    background: var(--bg-dark);
+    padding: 16px;
+    border-radius: 10px;
+    margin-top: 16px;
+}
+
+.contact-token-list {
+    background: var(--bg-lighter);
+    border-radius: 10px;
+    padding: 8px;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.contact-token-item {
+    background: var(--bg-dark);
+    margin: 6px 0;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.contact-token-item:hover {
+    transform: translateX(5px);
+    border-color: var (--accent-color);
+}
+
+.dialog-buttons {
+    padding: 16px 24px;
+    background: var(--bg-lighter);
+    border-radius: 0 0 20px 20px;
+}
+
+.token-override-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.token-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.token-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.token-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.token-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-lighter);
+    transition: .4s;
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+}
+
+.token-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--text-secondary);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .token-toggle-slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .token-toggle-slider:before {
+    transform: translateX(26px);
+    background-color: white;
+}
+
+.token-limits {
+    margin-top: 15px;
+    display: none;
+}
+
+.token-limits.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.contact-token-list {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.contact-token-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.contact-token-item:last-child {
+    border-bottom: none;
+}
+
+.contact-token-info {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.contact-token-name {
+    font-size: 0.9em;
+    color: var(--text-primary);
+}
+
+.contact-token-model {
+    font-size: 0.8em;
+    color: var (--text-secondary);
+}
+
+.contact-token-input {
+    width: 100px;
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-lighter);
+    color: var(--text-primary);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    padding: 0 2px;
+}
+
+.timestamp {
+    margin-right: 8px;
+    font-size: 0.8em;
+}
+
+.token-count {
+    padding: 2px 6px;
+    background: var(--bg-lighter);
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+/* Update timestamp styles before the @media queries */
+.user-timestamp {
+    color: rgba(255, 255, 255, 0.8); /* More visible white for user messages */
+}
+
+/* Make sure this comes after the other message-info styles */
+.user-message .message-info {
+    justify-content: flex-end; /* Right align for user messages */
+}
+
+.user-message .timestamp {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+}
+
+.user-message .token-count {
+    display: none;
+}
+
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Add this line */
+    width: 0; /* Add this line */
+}
+
+/* Add this new style */
+#clearChatBtn:hover {
+    background: rgba(255, 68, 68, 0.1) !important;
+    color: #ff4444 !important;
+    border-color: #ff4444 !important;
+}
+
+/* Add these styles before the @media queries */
+#clearChatBtn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: var(--bg-lighter) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-secondary) !important;
+    box-shadow: none !important;
+}
+
+/* Update scrollbar for settings content */
+.settings-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.settings-content::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+.settings-content::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 3px;
+}
+
+/* Update dialog width */
+.create-group-dialog {
+    max-width: 700px;
+    width: 95%;
+    background: var(--bg-dark);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#createGroupForm {
+    overflow-y: auto;
+    max-height: calc(90vh - 120px); /* Account for header and padding */
+    padding: 24px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) var(--bg-lighter);
+}
+
+.members-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 8px;
+    background: var(--bg-lighter);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.members-count {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin-left: 8px;
+    padding: 4px 8px;
+    background: var(--bg-lighter);
+    border-radius: 12px;
+}
+
+/* Update form group spacing */
+.form-group {
+    margin-bottom: 24px;
+}
+
+.members-section {
+    margin-top: 32px;
+}
+
+/* Add new styles for the refresh button */
+.refresh-btn {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.refresh-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(var(--accent-color-rgb), 0.2);
+}
+
+.refresh-btn:active {
+    transform: translateY(1px);
+}
+
+.refresh-btn .fa-sync-alt {
+    transition: transform 0.3s ease;
+}
+
+.refresh-btn:hover .fa-sync-alt {
+    transform: rotate(180deg);
+}
+
+.refresh-btn.spinning .fa-sync-alt {
+    animation: spin 1s linear infinite;
+}
+
+/* ...existing code... */
+
+.chat-header-text h2 {
+    font-size: 1.2em;
+    margin: 0;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.chat-header-text .member-info,
+.chat-header-text .model-info {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.chat-header-info {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Match the gap from main chat */
+}
+
+/* Add this new style for empty state */
+.chat-header-text.empty h2 {
+    color: var(--text-secondary);
+    font-weight: normal;
+}
+
+.chat-header-profile,
+.group-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-color);
+    color: white;
+}
+
+.group-avatar i {
+    font-size: 1.2em;
+}
+
+/* ...existing code... */
+
+/* Add this CSS to style the notification error state */
+.notification.error {
+    background: #ff4444;
+}
+
+/* ...existing code... */

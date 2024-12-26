@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoSphere Chat</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="contacts-sidebar">
+            <div class="contacts-header">
+                <h2><i class="fas fa-robot"></i> EchoSphere Chats</h2>
+                <div class="contacts-actions">
+                    <button class="add-contact-btn" id="addContactBtn"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-bar" id="searchContacts" placeholder="Search contacts...">
+            </div>
+            <div class="contacts-list" id="contactsList">
+                <!-- Contacts will be dynamically added here -->
+            </div>
+        </div>
+        <div class="chat-container">
+            <header>
+                <div class="chat-header-info">
+                    <img src="../images/default.png" 
+                         alt="No contact selected"
+                         class="chat-header-profile"
+                         onerror="this.src='../images/default.png'">
+                    <div class="chat-header-text">
+                        <h2 id="currentContactName">Select a contact</h2>
+                        <span id="currentModel" class="model-info"></span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="header-btn" id="clearChatBtn" title="Clear Chat">
+                        <i class="fas fa-trash-alt"></i>
+                        <span class="btn-text">Clear</span>
+                    </button>
+                    <a href="../group/groups.html" class="header-btn">
+                        <i class="fas fa-users"></i>
+                        <span class="btn-text">Groups</span>
+                    </a>
+                    <button class="header-btn" id="settingsBtn">
+                        <i class="fas fa-cog"></i>
+                        <span class="btn-text">Settings</span>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="chat-window" id="chatWindow">
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Add Contact Dialog -->
+    <div class="dialog-overlay" id="addContactDialog">
+        <div class="dialog">
+            <h2>Add AI Contact</h2>
+            <form id="addContactForm">
+                <div class="form-group">
+                    <label for="contactImage">Profile Image:</label>
+                    <div class="image-upload-container">
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drop image here or click to upload</p>
+                            <input type="file" id="contactImage" accept="image/*" style="display: none">
+                        </div>
+                        <div class="image-preview-container" style="display: none">
+                            <img id="imagePreview" class="image-preview" src="" alt="Preview">
+                            <button type="button" class="remove-image" id="removeImage">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="contactName">Name:</label>
+                    <input type="text" id="contactName" required>
+                </div>
+                <div class="form-group">
+                    <label for="modelProvider">Model Provider:</label>
+                    <input type="text" id="modelProvider" 
+                           placeholder="e.g., OpenAI, Anthropic, Claude" 
+                           required>
+                </div>
+                <div class="form-group">
+                    <label for="modelName">AI Model:</label>
+                    <input type="text" id="modelName" 
+                           placeholder="e.g., gpt-3.5-turbo, gpt-4, claude-2" 
+                           required>
+                </div>
+                <div class="form-group">
+                    <label for="apiEndpoint">API Endpoint:</label>
+                    <input type="url" id="apiEndpoint" required>
+                </div>
+                <div class="form-group">
+                    <label for="apiKey">API Key:</label>
+                    <input type="password" id="apiKey" required>
+                </div>
+                <div class="form-group">
+                    <label for="promptTemplate">Personality Prompt:</label>
+                    <textarea id="promptTemplate" 
+                        placeholder="E.g.: You are a helpful assistant with expertise in programming. Always provide code examples in your explanations."
+                        rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tokenLimit">Maximum Response Tokens:</label>
+                    <input type="number" id="tokenLimit" 
+                           value="200" min="50" max="4000" 
+                           placeholder="e.g., 200" required>
+                    <small class="hint-text">Controls the maximum length of AI responses (50-4000)</small>
+                </div>
+                <div class="dialog-buttons">
+                    <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="save-btn">Save Contact</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
